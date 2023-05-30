@@ -1,0 +1,21 @@
+{
+  "name": "apistoresql",
+  "version": "1.0.0",
+  "description": "Backend using SQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev":"nodemon index.js"
+  },
+  "keywords": [
+    "api",
+    "store",
+    "sql"
+  ],
+  "author": "Dany Bechara",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
