@@ -1,0 +1,24 @@
+import { request, response } from "express";
+import { validationResult } from "express-validator";
+
+
+export const CheckErrors = (req=request,res=response,next) => {
+ 
+    const errores = validationResult(req);
+
+    if(errores.errors.length<1){
+console.log('esta vacio')
+    }else{
+        console.log('no esta')
+    }
+       
+  
+    if(!errores.isEmpty()){
+     return res.status(404).json({
+        ok:false,
+        msg:{...errores}
+     })
+    }else{
+        next();
+    }
+}

@@ -3,7 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import { RouterDefault } from '../Routes/Default.js';
 import { ClienteRouter } from '../Routes/Clientes.js';
-import { RouterUser } from '../Routes/User.js';
+import { RouterUser } from '../Routes/Login.js';
 dotenv.config();
 
 export class Server {

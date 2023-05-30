@@ -2,7 +2,6 @@ import { Router } from "express";
 import { getClientes, postClientes } from "../Controllers/Clientes.js";
 import { check } from "express-validator";
 import { CheckErrors } from "../helpers/CheckErrors.js";
-import { VerificarJWT } from "../helpers/VerificarJWT.js";
 
 export const ClienteRouter= Router();
 
@@ -13,5 +12,4 @@ ClienteRouter.get('/',getClientes)
 ClienteRouter.post('/',
 check('name','PLEASE, INSERT A CLIENT NAME').not().isEmpty(),
 CheckErrors,
-VerificarJWT,
 postClientes)
