@@ -12,6 +12,8 @@ RouterUser.post('/login',
 check('email','PLEASE INSERT A EMAIL').not().isEmpty(),
 check('email','PLEASE INSERT A VALID EMAIL').isEmail(),
 check('password','PLEASE INSERT A PASSWORD').not().isEmpty(),
+check('rol','PLEASE INSERT A ROL').not().isEmpty(),
+check('rol','PLEASE INSERT A VALID ROL').isIn(['ADMIN','USER']),
 CheckErrors,
 UserLogin)
 
@@ -20,7 +22,5 @@ RouterUser.post('/register',
 check('email','PLEASE INSERT A EMAIL').not().isEmpty(),
 check('email','PLEASE INSERT A VALID EMAIL').isEmail(),
 check('password','PLEASE INSERT A PASSWORD').not().isEmpty(),
-check('rol','PLEASE INSERT A ROL').not().isEmpty(),
-check('rol','PLEASE INSERT A VALID ROL').isIn(['ADMIN','USER']),
 CheckErrors,
 UserRegister)

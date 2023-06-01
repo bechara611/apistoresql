@@ -13,4 +13,14 @@ export const GenerarJWT = (id = '', email = '') => {
     })
 }
 
+export const LeerJWTMetodo = async (token) => {
+    try {
+        const payload = JWT.verify(token, process.env.SECRET_KEY)
+        if (payload) {
+            return payload;
+        }
+    } catch (error) {
+        return null;
+    }
+}
 

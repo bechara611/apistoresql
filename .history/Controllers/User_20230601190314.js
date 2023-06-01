@@ -1,5 +1,5 @@
 import { request, response } from "express";
-import { GenerarJWT } from "../helpers/GenerarJWT.js";
+import { GenerarJWT, LeerJWTMetodo } from "../helpers/GenerarJWT.js";
 import { ConexionSQL } from "../DB/Conexion.js";
 import { ExisteUsuario } from "../helpers/PeticionesUsuales.js";
 
@@ -43,8 +43,8 @@ export const UserLogin = async (req = request, res = response) => {
        if(existe[0].PASSWORD==password){
         const token = await GenerarJWT(existe[0].COD_USUARIO,email);
 
-      
-      
+        const payload = await LeerJWTMetodo(token);
+        console.log(payload)
         return res.status(200).json({
             ok: true,
             msg: 'Login success',

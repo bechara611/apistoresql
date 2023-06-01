@@ -42,9 +42,6 @@ export const UserLogin = async (req = request, res = response) => {
     
        if(existe[0].PASSWORD==password){
         const token = await GenerarJWT(existe[0].COD_USUARIO,email);
-
-      
-      
         return res.status(200).json({
             ok: true,
             msg: 'Login success',

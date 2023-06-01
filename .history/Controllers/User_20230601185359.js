@@ -42,9 +42,6 @@ export const UserLogin = async (req = request, res = response) => {
     
        if(existe[0].PASSWORD==password){
         const token = await GenerarJWT(existe[0].COD_USUARIO,email);
-
-      
-      
         return res.status(200).json({
             ok: true,
             msg: 'Login success',
@@ -90,7 +87,7 @@ export const UserRegister = async (req = request, res = response) => {
         return res.status(200).json({
             ok: true,
             msg: 'Register user  success',
-            usuario: { ID: usuarioRegistrado.insertId, name, email:email.toLowerCase() }
+            usuario: { ID: usuarioRegistrado.insertId, name, email }
         })
     } catch (error) {
         console.log(error)

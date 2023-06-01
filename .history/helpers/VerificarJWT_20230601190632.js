@@ -6,10 +6,8 @@ export const VerificarJWT = (req = request, res = response, next) => {
     try {
         const token = req.header('token')
 
-        const payload = JWT.verify(token, process.env.SECRET_KEY)
-        req.idUser=payload.id;
-        req.email=payload.email;
-        req.iat=payload.iat;
+        const id = JWT.verify(token, process.env.SECRET_KEY)
+        req.idUser=id
         next();
     } catch (error) {
         return res.status(400).json({

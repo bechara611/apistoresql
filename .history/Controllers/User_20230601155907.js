@@ -41,10 +41,7 @@ export const UserLogin = async (req = request, res = response) => {
        }
     
        if(existe[0].PASSWORD==password){
-        const token = await GenerarJWT(existe[0].COD_USUARIO,email);
-
-      
-      
+        const token = await GenerarJWT(existe.COD_USUARIO);
         return res.status(200).json({
             ok: true,
             msg: 'Login success',
@@ -72,7 +69,7 @@ export const UserLogin = async (req = request, res = response) => {
 
 export const UserRegister = async (req = request, res = response) => {
     try {
-        const { name, email='', password, rol } = req.body;
+        const { name, email, password, rol } = req.body;
 
         //?Comprobamos si existe el usuario
         const existe = await ExisteUsuario(email);
@@ -85,12 +82,12 @@ export const UserRegister = async (req = request, res = response) => {
 
         //? Ya que no existe lo registramos.
 
-        const [usuarioRegistrado] = await ConexionSQL.query('INSERT into USUARIOS (NAME,CORREO,ROL,PASSWORD) VALUES (?,?,?,?)', [name.toLowerCase(), email.toLowerCase(), rol, password])
+        const [usuarioRegistrado] = await ConexionSQL.query('INSERT into USUARIOS (NAME,CORREO,ROL,PASSWORD) VALUES (?,?,?,?)', [name, email, rol, password])
 
         return res.status(200).json({
             ok: true,
             msg: 'Register user  success',
-            usuario: { ID: usuarioRegistrado.insertId, name, email:email.toLowerCase() }
+            usuario: { ID: usuarioRegistrado.insertId, name, email }
         })
     } catch (error) {
         console.log(error)

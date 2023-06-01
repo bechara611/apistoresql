@@ -24,55 +24,32 @@ export const UserGet = async (req = request, res = response) => {
 }
 
 export const UserLogin = async (req = request, res = response) => {
-
-    try {
-        const { email, password } = req.body;
+    const { email, password } = req.body;
 
 
-        //TODO verifica en la BD que el usuario existe y que te devuelva el respectivo ID
-       //?Comprobamos si existe el usuario
-       const existe = await ExisteUsuario(email);
-    
-       if (!existe) {
-           return res.status(400).json({
-               ok: false,
-               msg: 'USER NOT FOUND'
-           })
-       }
-    
-       if(existe[0].PASSWORD==password){
-        const token = await GenerarJWT(existe[0].COD_USUARIO,email);
+    //TODO verifica en la BD que el usuario existe y que te devuelva el respectivo ID
+   //?Comprobamos si existe el usuario
+   const existe = await ExisteUsuario(email);
 
-      
-      
-        return res.status(200).json({
-            ok: true,
-            msg: 'Login success',
-            token
-        })
-       }else{
-        return res.status(400).json({
-            ok: false,
-            msg: 'INCORRECT PASSWORD'
-        })
-       }
-    
-     
-    
-    } catch (error) {
-        console.log(error)
-        return res.status(400).json({
-            ok: false,
-            msg: 'INTERNAL ERROR'
-        })
-    }
-   
-   
+   if (!existe) {
+       return res.status(400).json({
+           ok: false,
+           msg: 'USER NOT FOUND'
+       })
+   }
+
+    const token = await GenerarJWT(3);
+
+    res.status(200).json({
+        ok: true,
+        msg: 'Login success',
+        token
+    })
 }
 
 export const UserRegister = async (req = request, res = response) => {
     try {
-        const { name, email='', password, rol } = req.body;
+        const { name, email, password, rol } = req.body;
 
         //?Comprobamos si existe el usuario
         const existe = await ExisteUsuario(email);
@@ -85,12 +62,12 @@ export const UserRegister = async (req = request, res = response) => {
 
         //? Ya que no existe lo registramos.
 
-        const [usuarioRegistrado] = await ConexionSQL.query('INSERT into USUARIOS (NAME,CORREO,ROL,PASSWORD) VALUES (?,?,?,?)', [name.toLowerCase(), email.toLowerCase(), rol, password])
+        const [usuarioRegistrado] = await ConexionSQL.query('INSERT into USUARIOS (NAME,CORREO,ROL,PASSWORD) VALUES (?,?,?,?)', [name, email, rol, password])
 
         return res.status(200).json({
             ok: true,
             msg: 'Register user  success',
-            usuario: { ID: usuarioRegistrado.insertId, name, email:email.toLowerCase() }
+            usuario: { ID: usuarioRegistrado.insertId, name, email }
         })
     } catch (error) {
         console.log(error)
