@@ -31,16 +31,15 @@ export const postClientes =async (req = request, res = response) => {
         return res.status(200).json({
             ok: true,
             msg: 'POST CLIENTES',
-            Usuario:req.idUser,
-            Cliente_cedula:cedula,
-            Cliente_name:name
+            idsuser:req.idUser,
+            usuarioRegistrado
         })
 
     } catch (error) {
-
+        console.log(error)
         return res.status(400).json({
             ok: false,
-            msg: error?.sqlMessage || 'INTERNAL ERROR'
+            msg: 'INTERNAL ERROR'
         })
     }
 }

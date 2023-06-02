@@ -26,21 +26,17 @@ export const getClientes = async (req = request, res = response) => {
 export const postClientes =async (req = request, res = response) => {
     try {
         const {name,cedula,direccion} = req.body;
-
-        const usuarioRegistrado = await ConexionSQL.query('INSERT into CLIENTE values (?,?,?)',[cedula,name,direccion])
         return res.status(200).json({
             ok: true,
             msg: 'POST CLIENTES',
-            Usuario:req.idUser,
-            Cliente_cedula:cedula,
-            Cliente_name:name
+            idsuser:req.idUser
         })
 
     } catch (error) {
-
+        console.log(error)
         return res.status(400).json({
             ok: false,
-            msg: error?.sqlMessage || 'INTERNAL ERROR'
+            msg: 'INTERNAL ERROR'
         })
     }
 }

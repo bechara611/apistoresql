@@ -4,8 +4,6 @@ import dotenv from 'dotenv'
 import { RouterDefault } from '../Routes/Default.js';
 import { ClienteRouter } from '../Routes/Clientes.js';
 import { RouterUser } from '../Routes/User.js';
-import RouterProveedor from '../Routes/Proveedores.js';
-import { RouterProducto } from '../Routes/Productos.js';
 dotenv.config();
 
 export class Server {
@@ -16,8 +14,7 @@ export class Server {
             user:'/api/user',
             default: '/*',
             clientes: '/api/clientes',
-            proveedores:'/api/proveedores',
-            producutos:'/api/productos'
+            proveedores:'/api/proveedores'
         }
         this.Middlewares();
         this.Rutas();
@@ -29,10 +26,8 @@ export class Server {
     Rutas() {
         this.app.use(this.rutas.user,RouterUser)
         this.app.use(this.rutas.clientes, ClienteRouter)
-        this.app.use(this.rutas.proveedores,RouterProveedor)
-        this.app.use(this.rutas.producutos,RouterProducto)
-        this.app.use(this.rutas.default, RouterDefault)
-   
+        this.app.use(this.rutas.default, RouterDefault),
+        this.app.use(this.rutas.proveedores,()=>{})
        
 
     }

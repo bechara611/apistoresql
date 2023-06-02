@@ -17,7 +17,7 @@ export class Server {
             default: '/*',
             clientes: '/api/clientes',
             proveedores:'/api/proveedores',
-            producutos:'/api/productos'
+            producutos:'/apii/productos'
         }
         this.Middlewares();
         this.Rutas();
