@@ -6,7 +6,6 @@ import { ClienteRouter } from '../Routes/Clientes.js';
 import { RouterUser } from '../Routes/User.js';
 import RouterProveedor from '../Routes/Proveedores.js';
 import { RouterProducto } from '../Routes/Productos.js';
-import { RouterVentas } from '../Routes/Ventas.js';
 dotenv.config();
 
 export class Server {
@@ -33,7 +32,7 @@ export class Server {
         this.app.use(this.rutas.clientes, ClienteRouter)
         this.app.use(this.rutas.proveedores,RouterProveedor)
         this.app.use(this.rutas.producutos,RouterProducto)
-        this.app.use(this.rutas.ventas,RouterVentas)
+        this.app.use(this.rutas.ventas,()=>{})
         this.app.use(this.rutas.default, RouterDefault)
    
        
