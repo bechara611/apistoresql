@@ -11,9 +11,6 @@ VerificarJWT,
 ObtenerVentas)
 
 RouterVentas.get('/:id',
-check('id','INSERT ID').not().isEmpty(),
-check('id','INSERT NUMERIC OR VALID ID').isNumeric(),
-CheckErrors,
 VerificarJWT,
 ObtenerDetalle)
 

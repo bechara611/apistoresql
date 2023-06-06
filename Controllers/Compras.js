@@ -1,21 +1,21 @@
-import { request, response } from "express";
-import { ConexionSQL } from "../DB/Conexion.js";
+import { ConexionSQL } from "../DB/Conexion.js"
 
-export const ObtenerVentas = async (req = request, res = response) => {
+export const obtenerCompras = async (req = request, res = response) => {
     try {
-
-        const [ventas] = await ConexionSQL.query('SELECT * FROM VENTAS_GENERAL')
-        const [todosLosDetalles] = await ConexionSQL.query('SELECT * FROM VENTAS_DETALLE');
+        const [compras] = await ConexionSQL.query('SELECT * FROM COMPRAS_GENERAL')
+      //  const [ventas] = await ConexionSQL.query('SELECT * FROM VENTAS_GENERAL')
+  
         return res.status(200).json({
             ok: true,
-            msg: 'GET VENTAS',
-            ventas,
-            todosLosDetalles
+            msg: 'GET Compras',
+            compras
+            
         })
 
         //TODO practica el hecho de agrupar todos los detalles por id
 
     } catch (error) {
+        console.log(error)
         return res.status(400).json({
             ok: false,
             msg: error?.sqlMessage || 'INTERNAL ERROR'
@@ -24,26 +24,24 @@ export const ObtenerVentas = async (req = request, res = response) => {
     }
 }
 
-export const ObtenerDetalle = async (req = request, res = response) => {
-    const { id } = req.params
-    const [detalle] = await ConexionSQL.query('SELECT * FROM VENTAS_DETALLE WHERE ID_VENTA=?', [id])
 
-    if (detalle.length == 0) {
-        return res.status(400).json({
-            ok: false,
-            msg: 'ID NOT FOUND',
-
-
-        })
-    }
+export const obtenerComprasDetalle = async (req = request, res = response) => {
     try {
+        const {id} = req.params
+
+      //  const [ventas] = await ConexionSQL.query('SELECT * FROM VENTAS_GENERAL')
+  
         return res.status(200).json({
             ok: true,
-            msg: 'GET VENTAS DETALLE',
-            detalle
-
+            msg: 'GET Compras detalle',
+            id
+            
         })
+
+        //TODO practica el hecho de agrupar todos los detalles por id
+
     } catch (error) {
+        console.log(error)
         return res.status(400).json({
             ok: false,
             msg: error?.sqlMessage || 'INTERNAL ERROR'
@@ -52,9 +50,18 @@ export const ObtenerDetalle = async (req = request, res = response) => {
     }
 }
 
-export const RegistrarVenta = async (req = request, res = response) => {
+
+
+export const RegistrarCompra = async (req = request, res = response) => {
     try {
         const body = req.body;
+//TODO borrar lo de abajo
+return res.status(200).json({
+    ok: true,
+    msg: 'POST REGISTRO DE  COMPRAS',
+    body,
+   
+})
 
         const [ventaRegistrada] = await ConexionSQL.query('INSERT into VENTAS_GENERAL(CED_CLIENTE,PAGADO_TOTAL,FECHA) VALUES (?,?,?)', [body.CED_CLIENTE, body.PAGADO_TOTAL, body.FECHA])
 

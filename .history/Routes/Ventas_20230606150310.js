@@ -1,5 +1,5 @@
 import Router from 'express'
-import { ObtenerDetalle, ObtenerVentas, RegistrarVenta } from '../Controllers/Ventas.js';
+import { ObtenerVentas, RegistrarVenta } from '../Controllers/Ventas.js';
 import { VerificarJWT } from '../helpers/VerificarJWT.js';
 import { check } from 'express-validator';
 import { CheckErrors } from '../helpers/CheckErrors.js';
@@ -11,11 +11,8 @@ VerificarJWT,
 ObtenerVentas)
 
 RouterVentas.get('/:id',
-check('id','INSERT ID').not().isEmpty(),
-check('id','INSERT NUMERIC OR VALID ID').isNumeric(),
-CheckErrors,
 VerificarJWT,
-ObtenerDetalle)
+ObtenerVentas)
 
 
 RouterVentas.post('/',

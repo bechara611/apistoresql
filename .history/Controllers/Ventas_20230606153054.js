@@ -12,8 +12,8 @@ export const ObtenerVentas = async (req = request, res = response) => {
             ventas,
             todosLosDetalles
         })
-
-        //TODO practica el hecho de agrupar todos los detalles por id
+        
+  //TODO practica el hecho de agrupar todos los detalles por id
 
     } catch (error) {
         return res.status(400).json({
@@ -24,32 +24,32 @@ export const ObtenerVentas = async (req = request, res = response) => {
     }
 }
 
-export const ObtenerDetalle = async (req = request, res = response) => {
-    const { id } = req.params
-    const [detalle] = await ConexionSQL.query('SELECT * FROM VENTAS_DETALLE WHERE ID_VENTA=?', [id])
+export const ObtenerDetalle = async(req=request,res=response)=>{
+    const {id}=req.params
+    const [detalle] = await ConexionSQL.query('SELECT * FROM VENTAS_DETALLE WHERE ID_VENTA=?',[id])
 
-    if (detalle.length == 0) {
+    if(detalle.length==0){
         return res.status(400).json({
             ok: false,
             msg: 'ID NOT FOUND',
-
-
+            
+     
         })
     }
-    try {
-        return res.status(200).json({
-            ok: true,
-            msg: 'GET VENTAS DETALLE',
-            detalle
+try {
+    return res.status(200).json({
+        ok: true,
+        msg: 'GET VENTAS DETALLE',
+        detalle
+ 
+    })
+} catch (error) {
+    return res.status(400).json({
+        ok: false,
+        msg: error?.sqlMessage || 'INTERNAL ERROR'
+    })
 
-        })
-    } catch (error) {
-        return res.status(400).json({
-            ok: false,
-            msg: error?.sqlMessage || 'INTERNAL ERROR'
-        })
-
-    }
+}
 }
 
 export const RegistrarVenta = async (req = request, res = response) => {
@@ -58,10 +58,10 @@ export const RegistrarVenta = async (req = request, res = response) => {
 
         const [ventaRegistrada] = await ConexionSQL.query('INSERT into VENTAS_GENERAL(CED_CLIENTE,PAGADO_TOTAL,FECHA) VALUES (?,?,?)', [body.CED_CLIENTE, body.PAGADO_TOTAL, body.FECHA])
 
-        body.COD_PRODUCTO.forEach(async (codigo, index) => {
+        body.COD_PRODUCTO.forEach(async (codigo,index) => {
             if (ventaRegistrada.insertId) {
-
-                await ConexionSQL.query('INSERT INTO VENTAS_DETALLE(COD_PRODUCTO,CANTIDAD,PAGADO,ID_VENTA) VALUES (?,?,?,?)', [codigo, body.CANTIDAD[index], body.PAGADO[index], ventaRegistrada?.insertId])
+            
+                const [detalles] = await ConexionSQL.query('INSERT INTO VENTAS_DETALLE(COD_PRODUCTO,CANTIDAD,PAGADO,ID_VENTA) VALUES (?,?,?,?)', [codigo, body.CANTIDAD[index], body.PAGADO[index], ventaRegistrada?.insertId])
             }
         });
 

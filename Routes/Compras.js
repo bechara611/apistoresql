@@ -1,25 +1,29 @@
 import Router from 'express'
-import { ObtenerDetalle, ObtenerVentas, RegistrarVenta } from '../Controllers/Ventas.js';
+import { RegistrarCompra, obtenerCompras, obtenerComprasDetalle } from '../Controllers/Compras.js';
 import { VerificarJWT } from '../helpers/VerificarJWT.js';
-import { check } from 'express-validator';
 import { CheckErrors } from '../helpers/CheckErrors.js';
+import { check } from 'express-validator';
 
-export const RouterVentas = Router();
+export const RouterCompras = Router();
 
-RouterVentas.get('/',
+
+RouterCompras.get('/',
 VerificarJWT,
-ObtenerVentas)
+obtenerCompras)
 
-RouterVentas.get('/:id',
+
+RouterCompras.get('/:id',
 check('id','INSERT ID').not().isEmpty(),
 check('id','INSERT NUMERIC OR VALID ID').isNumeric(),
 CheckErrors,
 VerificarJWT,
-ObtenerDetalle)
+obtenerComprasDetalle)
 
 
-RouterVentas.post('/',
-check('CED_CLIENTE','INSERT A CLIENT').not().isEmpty(),
+
+
+RouterCompras.post('/',
+check('CED_PROVEEDOR','INSERT A PROVIDER').not().isEmpty(),
 check('FECHA','INSERT A DATE').not().isEmpty(),
 check('FECHA','INSERT A VALID DATE').isDate(),
 check('PAGADO_TOTAL','INSERT A TOTAL').not().isEmpty(),
@@ -31,4 +35,4 @@ check('PAGADO','INSERT A PAGADO (ARRAYZ)').not().isEmpty(),
 check('PAGADO','PAGADO MUST TO BE AN ARRAYZ').isArray(),
 CheckErrors,
 VerificarJWT,
-RegistrarVenta)
+RegistrarCompra)
