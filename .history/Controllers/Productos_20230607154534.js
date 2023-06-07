@@ -109,7 +109,7 @@ export const ObtenerProductosPorProveedorAlProveedor = async (req = request, res
         if(existe.length==0){
             return res.status(400).json({
                 ok: false,
-                msg: 'PROVIDER NOT FOUND'
+                msg: 'PRODUCTO NOT FOUND'
             })
         }
        

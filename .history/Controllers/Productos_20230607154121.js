@@ -86,36 +86,9 @@ export const ObtenerProductosPorProveedor = async (req = request, res = response
        
         return res.status(200).json({
             ok: true,
-            existe
-        })
-
-    } catch (error) {
-        return res.status(400).json({
-            ok: false,
-            msg: error?.sqlMessage || 'INTERNAL ERROR'
-        })
-
-    }
-}
-
-export const ObtenerProductosPorProveedorAlProveedor = async (req = request, res = response) => {
-    try {
-      
-        const {CED_PROVEEDOR=0} = req.body;
-        //TODO debes hacer un check de que si el nombre existe o no
-
-        const [existe] = await ConexionSQL.query('select * from prodxprov where CED_PROVEEDOR=?',[CED_PROVEEDOR])
-
-        if(existe.length==0){
-            return res.status(400).json({
-                ok: false,
-                msg: 'PROVIDER NOT FOUND'
-            })
-        }
-       
-        return res.status(200).json({
-            ok: true,
-            ...existe
+            ID_PRODUCTO,
+            CED_PROVEEDOR,
+            resultado
         })
 
     } catch (error) {

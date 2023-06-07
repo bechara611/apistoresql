@@ -39,6 +39,7 @@ export const obtenerComprasDetalle = async (req = request, res = response) => {
             
         })
 
+        //TODO practica el hecho de agrupar todos los detalles por id
 
     } catch (error) {
         console.log(error)

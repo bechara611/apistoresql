@@ -29,16 +29,16 @@ export const obtenerComprasDetalle = async (req = request, res = response) => {
     try {
         const {id} = req.params
 
-        const [compras] = await ConexionSQL.query('SELECT * FROM COMPRAS_DETALLE WHERE ID_COMPRA=?',[id])
+      //  const [ventas] = await ConexionSQL.query('SELECT * FROM VENTAS_GENERAL')
   
         return res.status(200).json({
             ok: true,
             msg: 'GET Compras detalle',
-            id,
-            compras
+            id
             
         })
 
+        //TODO practica el hecho de agrupar todos los detalles por id
 
     } catch (error) {
         console.log(error)

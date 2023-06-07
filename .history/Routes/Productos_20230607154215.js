@@ -1,5 +1,5 @@
 import Router from "express";
-import { ObtenerProductos, ObtenerProductosPorProveedor, ObtenerProductosPorProveedorAlProveedor, RegistrarProductos, RegistrarProductosPorProveedor } from "../Controllers/Productos.js";
+import { ObtenerProductos, ObtenerProductosPorProveedor, RegistrarProductos, RegistrarProductosPorProveedor } from "../Controllers/Productos.js";
 import { VerificarJWT } from "../helpers/VerificarJWT.js";
 import { check } from "express-validator";
 import { CheckErrors } from "../helpers/CheckErrors.js";
@@ -28,17 +28,9 @@ VerificarJWT,
 RegistrarProductosPorProveedor
 )
 
-RouterProducto.get('/register/prodxprov/search1',
+RouterProducto.get('/register/prodxprov/',
 check('ID_PRODUCTO','INSERT A VALID PRODUCT').not().isEmpty(),
 CheckErrors,
 VerificarJWT,
 ObtenerProductosPorProveedor
 )
-
-RouterProducto.get('/register/prodxprov/search2',
-check('CED_PROVEEDOR','INSERT A VALID PROVIDER').not().isEmpty(),
-CheckErrors,
-VerificarJWT,
-ObtenerProductosPorProveedorAlProveedor
-)
-
